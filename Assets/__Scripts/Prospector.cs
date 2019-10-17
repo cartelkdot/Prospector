@@ -74,14 +74,26 @@ public class Prospector : MonoBehaviour {
             layoutAnchor = tGO.transform; // Grab its transform
             layoutAnchor.transform.position = layoutCenter; //Position it
         }
-        CardProspector op;
+        CardProspector cp;
         //Follow the layout
         foreach(SlotDef tS in layout.slotDefs)
         {
             // ^ Iterate through all the SlotDefs in the layout.slotDefs as TS
-            op = Draw(); // Pull a card from the top (beginning) of the drwa Pile
-            op.faceUp = tS.faceUp; // Set its faceUp to the value in slotDef
-            op.transform.parent = layoutAnchor; //Make its parent layoutAnchor
+            cp = Draw(); // Pull a card from the top (beginning) of the drwa Pile
+            cp.faceUp = tS.faceUp; // Set its faceUp to the value in slotDef
+            cp.transform.parent = layoutAnchor; //Make its parent layoutAnchor
+            //This replaces the previous parent: deck.deckAnchor, which
+            // appears as _Deck in the Hieracrchy when the scene is playing.
+            cp.transform.localPosition = new Vector3(
+                layout.multiplier.x * tS.x,
+                layout.multiplier.y * tS.y,
+                -tS.LayerID);
+            //^ Set the local position of the card based on slotDef
+            cp.layoutID = tS.id;
+            cp.slotDef = tS;
+            //CardProspectors in the tableau have the state CardState.tableau
+            cp.state = eCardState.tableau;
+            tableau.Add(cp); //Add this CardProspector to the List<> tableau
         }
     }
 
