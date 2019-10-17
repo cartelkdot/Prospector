@@ -247,7 +247,7 @@ public class Deck : MonoBehaviour {
 			tSR.sortingOrder = 2;
 			tGO.name = "back";
 			card.back = tGO;
-			card.faceUp = false;
+			card.faceUp = startFaceUp;
 			
 			cards.Add (card);
 		} // for all the Cardnames	
@@ -267,16 +267,16 @@ public class Deck : MonoBehaviour {
     {
         //Add Card Back
         //The Card_Back will be able to cover everything else on the Card
-        tGO = Instantiate(prefabSprite) as GameObject;
-        tSR = tGO.GetComponent<SpriteRenderer>();
-        tSR.sprite = cardBack;
-        tGO.transform.SetParent(card.transform);
-        tGO.transform.localPosition = Vector3.zero;
+        //tGO = Instantiate(prefabSprite) as GameObject;
+        //tS = tGO.GetComponent<SpriteRenderer>();
+        //tS.sprite = cardBack;
+        //tGO.transform.SetParent(card.transform);
+        //tGO.transform.localPosition = Vector3.zero;
         //This is a higher sortingOrder than anything else
-        tSR.sortingOrder = 2;
-        tGO.name = "back";
-        card.back = tGO;
-        card.faceUp = startFaceUp;
+        //tS.sortingOrder = 2;
+        //tGO.name = "back";
+        //card.back = tGO;
+        //card.faceUp = startFaceUp;
     }
 
 	 static public void Shuffle(ref List<Card> oCards)

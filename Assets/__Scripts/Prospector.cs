@@ -16,7 +16,7 @@ public class Prospector : MonoBehaviour {
 
 	[Header("Set Dynamically")]
 	public Deck					deck;
-    public LayoutElement layout;
+    public Layout layout;
 
 	void Awake(){
 		S = this;
@@ -26,14 +26,14 @@ public class Prospector : MonoBehaviour {
 		deck = GetComponent<Deck> ();
 		deck.InitDeck (deckXML.text);
         Deck.Shuffle(ref deck.cards); // This shuffles the deck by reference
-        Card c;
-        for (int cNum = 0; cNum < deck.cards.Count; cNum++)
-        {
-            c = deck.cards[cNum];
-            c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
-        }
+        //Card c;
+        //for (int cNum = 0; cNum < deck.cards.Count; cNum++)
+        //{
+          //  c = deck.cards[cNum];
+            //c.transform.localPosition = new Vector3((cNum % 13) * 3, cNum / 13 * 4, 0);
+       // }
         layout = GetComponent<Layout>(); //Get the Layout component
-        layout.ReadLayout(layout.XML.text); //Pass LayoutXML to it
+        layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
 	}
 
 }
