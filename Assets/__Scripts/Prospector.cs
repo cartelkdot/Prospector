@@ -43,6 +43,7 @@ public class Prospector : MonoBehaviour {
         layout = GetComponent<Layout>(); //Get the Layout component
         //layout.ReadLayout(layoutXML.text); //Pass LayoutXML to it
         drawPile = ConvertListCardsToListCardProspectors(deck.cards);
+        LayoutGame();
 	}
     List<CardProspector> ConvertListCardsToListCardProspectors(List<Card> lCD)
     {
@@ -54,6 +55,34 @@ public class Prospector : MonoBehaviour {
             lCP.Add(tCP);
         }
         return (lCP);
+    }
+    //The Draw function will pull a single card from the drawPile and return it
+    CardProspector Draw()
+    {
+        CardProspector cd = drawPile[0]; //Pull the 0th CardProspector
+        drawPile.RemoveAt(0);
+        return (cd); 
+    }
+    //LayoutGame() positions the intial tableau of cards, a.k.a the "mine"
+    void LayoutGame()
+    {
+        //Create an empty GameObject to serve as an anchor for the tableau
+        if(layoutAnchor == null)
+        {
+            GameObject tGO = new GameObject("_LayoutAnchor");
+            //^ Create an empty GameObject names _LayoutAnchor in the Hieracrchy
+            layoutAnchor = tGO.transform; // Grab its transform
+            layoutAnchor.transform.position = layoutCenter; //Position it
+        }
+        CardProspector op;
+        //Follow the layout
+        foreach(SlotDef tS in layout.slotDefs)
+        {
+            // ^ Iterate through all the SlotDefs in the layout.slotDefs as TS
+            op = Draw(); // Pull a card from the top (beginning) of the drwa Pile
+            op.faceUp = tS.faceUp; // Set its faceUp to the value in slotDef
+            op.transform.parent = layoutAnchor; //Make its parent layoutAnchor
+        }
     }
 
 }
