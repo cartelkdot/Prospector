@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class Deck : MonoBehaviour {
 
-[Header("Set in Inspector")]
+    [Header("Set in Inspector")]
+    public bool startFaceUp = false;
 	//Suits
 	public Sprite suitClub;
 	public Sprite suitDiamond;
@@ -261,6 +262,22 @@ public class Deck : MonoBehaviour {
 		}//foreach	
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
+
+    private void AddBack(Card card)
+    {
+        //Add Card Back
+        //The Card_Back will be able to cover everything else on the Card
+        tGO = Instantiate(prefabSprite) as GameObject;
+        tSR = tGO.GetComponent<SpriteRenderer>();
+        tSR.sprite = cardBack;
+        tGO.transform.SetParent(card.transform);
+        tGO.transform.localPosition = Vector3.zero;
+        //This is a higher sortingOrder than anything else
+        tSR.sortingOrder = 2;
+        tGO.name = "back";
+        card.back = tGO;
+        card.faceUp = startFaceUp;
+    }
 
 	 static public void Shuffle(ref List<Card> oCards)
 	 {
