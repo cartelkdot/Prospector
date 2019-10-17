@@ -263,7 +263,7 @@ public class Deck : MonoBehaviour {
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
 
-    private void AddBack(Card card)
+    public void AddBack(Card card)
     {
         //Add Card Back
         //The Card_Back will be able to cover everything else on the Card
